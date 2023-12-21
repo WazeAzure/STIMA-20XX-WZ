@@ -184,6 +184,30 @@ int kasusKurung2(int numbers[4]){
                 if(sum == 24){
                     count++;
                 }
+
+                sum = eval2(numbers[2], symbols[k], numbers[3]);
+
+                sum = eval2(eval2(numbers[0], symbols[i], numbers[1]), symbols[j], sum);
+                printf("(%d %c %d) %c (%d %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
+                if(sum == 24){
+                    count++;
+                }
+            }
+        }
+    }
+    
+    return count;
+}
+
+int kasusKurung3(int numbers[4]){
+    int i, j, k; // lambang
+    int count = 0;
+    
+    float sum = 0;
+    for(i=0; i<4; i++){
+        for(j=0; j<4; j++){
+            for(k=0; k<4; k++){
+                
             }
         }
     }
