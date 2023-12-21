@@ -164,32 +164,32 @@ int kasusKurung2(int numbers[4]){
                 sum = eval2(numbers[0], symbols[i], numbers[1]);
 
                 sum = eval3(sum, symbols[j], numbers[2], symbols[k], numbers[3]);
-                printf("(%d %c %d) %c %d %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                 if(sum == 24){
+                    printf("(%d %c %d) %c %d %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                     count++;
                 }
 
                 sum = eval2(numbers[1], symbols[j], numbers[2]);
 
                 sum = eval3(numbers[0], symbols[i], sum, symbols[k], numbers[3]);
-                printf("%d %c (%d %c %d) %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                 if(sum == 24){
+                    printf("%d %c (%d %c %d) %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                     count++;
                 }
 
                 sum = eval2(numbers[2], symbols[k], numbers[3]);
 
                 sum = eval3(numbers[0], symbols[i], numbers[1], symbols[j], sum);
-                printf("%d %c %d %c (%d %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                 if(sum == 24){
+                    printf("%d %c %d %c (%d %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                     count++;
                 }
 
                 sum = eval2(numbers[2], symbols[k], numbers[3]);
 
                 sum = eval2(eval2(numbers[0], symbols[i], numbers[1]), symbols[j], sum);
-                printf("(%d %c %d) %c (%d %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                 if(sum == 24){
+                    printf("(%d %c %d) %c (%d %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
                     count++;
                 }
             }
@@ -207,7 +207,37 @@ int kasusKurung3(int numbers[4]){
     for(i=0; i<4; i++){
         for(j=0; j<4; j++){
             for(k=0; k<4; k++){
-                
+                sum = eval2(eval2(numbers[0], symbols[i], numbers[1]), symbols[j], numbers[2]);
+
+                sum = eval2(sum, symbols[k], numbers[3]);
+                if(sum == 24){
+                    printf("((%d %c %d) %c %d) %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
+                    count++;
+                }
+
+                sum = eval2(numbers[0], symbols[i], eval(numbers[1], symbols[j], numbers[2]));
+
+                sum = eval2(sum, symbols[k], numbers[3]);
+                if(sum == 24){
+                    printf("(%d %c (%d %c %d)) %c %d = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
+                    count++;
+                }
+
+                sum = eval2(eval2(numbers[1], symbols[j], numbers[2]), symbols[k], numbers[3]);
+
+                sum = eval2(numbers[0], symbols[i], sum);
+                if(sum == 24){
+                    printf("%d %c ((%d %c %d) %c %d) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
+                    count++;
+                }
+
+                sum = eval2(numbers[1], symbols[j], eval2(numbers[2], symbols[k], numbers[3]));
+
+                sum = eval2(numbers[0], symbols[i], sum);
+                if(sum == 24){
+                    printf("%d %c (%d %c (%d %c %d)) = %f\n", numbers[0], symbols[i], numbers[1], symbols[j], numbers[2], symbols[k], numbers[3], sum);
+                    count++;
+                }
             }
         }
     }
@@ -231,6 +261,7 @@ int bruteForce(int numbers[4]){
                 tempNumbers[2] = numbers[k3-1];
                 tempNumbers[3] = numbersSum - tempNumbers[0] - tempNumbers[1] - tempNumbers[2];
                 countSolution += kasusKurung2(tempNumbers);
+                countSolution += kasusKurung3(tempNumbers);
             }
         }
     }
