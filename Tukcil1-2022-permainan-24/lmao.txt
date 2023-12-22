@@ -1,0 +1,2 @@
+Input Masukan: 7 9 6 Q
+Solusi: 12 ditemukan!
