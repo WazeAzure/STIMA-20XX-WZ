@@ -33,6 +33,7 @@ def validValue(row, col, val):
             return False
     
     # cek 1 vertikal
+    # print(row, col)
     for y in range(9):
         if(arr[y][col] == val):
             return False
@@ -43,7 +44,7 @@ def validValue(row, col, val):
 
     for i in range(3):
         for j in range(3):
-            if(arr[i+square_r][j+square_c] == val):
+            if(arr[i + square_r*3][j + square_c*3] == val):
                 return False
     
     return True
@@ -51,6 +52,7 @@ def validValue(row, col, val):
 def findNextEmpty(r, c):
     while(r < 9):
         while(c < 9):
+            # print(r, c, "----------")
             if(arr[r][c] == ''):
                 return r, c
             c += 1
@@ -58,34 +60,31 @@ def findNextEmpty(r, c):
         r += 1 
     return -1, -1
 
-def bruteForce(rootR, rootC, counter, start_value=1):
-    currentY, currentX = rootR, rootC
-    if(start_value== 10):
-        return False
-    if(validValue(currentY, currentX, start_value)):
-        print("True")
-        print(currentY, currentX, start_value)
-        arr[currentY][currentX] = str(start_value)
-        # solve(currentY, currentX)
+def bruteForce(rootR, rootC):
+    r, c = findNextEmpty(rootR, rootC)
+    if(r == c == -1):
         return True
-    else:
-        start_value += 1
-        print("False")
-        bruteForce(rootR, rootC, counter+1, start_value)
-        return False
+    
+    tracker = False
+    for i in range(1, 10):
+        if(validValue(r, c, i)):
+            arr[r][c] = str(i)
+            temp = bruteForce(r, c)
 
-def solve(y=0, x=0, start_value=1):
-    r, c = findNextEmpty(y, x)
-    if bruteForce(r, c, 0, start_value):
-        pass
-    else:
-        pass
+            tracker |= temp
+
+    if(not tracker):
+        arr[r][c] = ""
+
+    return tracker
+        
+    
 
 if __name__ == "__main__":
     filename = "test/test1.txt"
     readfile(filename)
 
-    solve()
+    bruteForce(0, 0)
     
-
+    print("final -")
     write_to_file("test/ans1.txt")
