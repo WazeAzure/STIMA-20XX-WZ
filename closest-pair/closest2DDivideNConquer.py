@@ -39,7 +39,7 @@ def dnc(arr, n):
 
     strip = []
     for i in range(n):
-        if(arr[i][0] < arr[mid][0]):
+        if(abs(arr[i][0] - arr[mid][0]) <= dist):
             strip.append(arr[i])
     
     temp = stripDist(strip)
