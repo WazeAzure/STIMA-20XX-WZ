@@ -11,7 +11,8 @@ def showMaze(maze):
     time.sleep(100/1000)
 
 def initMaze():
-    f = open('maze.txt', 'r')
+    fname = input("file name:")
+    f = open(f'maze/{fname}', 'r')
 
     for line in f:
         line = line.strip()
@@ -86,5 +87,5 @@ if __name__ == "__main__":
     # print(maze)
     visited = [[0 for col in range(len(maze[0]))] for row in range(len(maze))]
 
-    # BFS((oR, oC), visited, 'E')
-    TraverseRec((oR, oC), visited, 'E')
+    BFS((oR, oC), visited, 'E')
+    # TraverseRec((oR, oC), visited, 'E')

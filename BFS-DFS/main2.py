@@ -12,7 +12,7 @@ def showMaze(maze):
     time.sleep(100/1000)
 
 def initMaze():
-    f = open('maze.txt', 'r')
+    f = open('maze/maze2.txt', 'r')
 
     for line in f:
         line = line.strip()
